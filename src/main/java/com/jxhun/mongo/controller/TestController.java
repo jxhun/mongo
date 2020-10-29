@@ -3,11 +3,11 @@ package com.jxhun.mongo.controller;
 import com.jxhun.mongo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -27,7 +27,7 @@ public class TestController {
     @ResponseBody
     public String add() {
         User user = new User();
-        user.setUsername("ym");
+//        user.setUsername("ym");
         user.setPassword("12321321");
         System.out.println(mongoTemplate.getDb().getName());
         System.out.println("----------------------------------------------");
@@ -39,5 +39,10 @@ public class TestController {
     @ResponseBody
     public List<User> list() {
         return mongoTemplate.findAll(User.class);
+    }
+
+    @PostMapping("/test")
+    public void test(HttpServletResponse response) {
+        response.encodeRedirectURL("www.baidu.com");
     }
 }

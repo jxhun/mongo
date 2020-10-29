@@ -1,14 +1,20 @@
 package com.jxhun.mongo.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -22,12 +28,24 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sale_shop")
+@ToString
 public class Shop extends Model<Shop> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 主键ID
+     *
+     * @Id 标注这个id为MongoDB的id
+     */
+    @Id
+    @TableField(exist = false)
+    private ObjectId _id;
+
+    /**
+     * 主键ID
+     *
+     * @Id 标注这个id为MongoDB的id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -212,10 +230,63 @@ public class Shop extends Model<Shop> {
      */
     private LocalDateTime photoApprovalTime;
 
+    @TableField(exist = false)
+    private List<User> userShops;
+
+    @TableField(exist = false)
+    private List<Dealer> dealers;
+
+    @TableField(exist = false)
+    private Integer users;
 
     @Override
     protected Serializable pkVal() {
         return this.id;
     }
 
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", shopkeeper='" + shopkeeper + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", wechatNumber='" + wechatNumber + '\'' +
+                ", channelType='" + channelType + '\'' +
+                ", shopType='" + shopType + '\'' +
+                ", regionCode='" + regionCode + '\'' +
+                ", provinceId=" + provinceId +
+                ", cityId=" + cityId +
+                ", districtId=" + districtId +
+                ", districtName='" + districtName + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", address='" + address + '\'' +
+                ", lat='" + lat + '\'' +
+                ", lng='" + lng + '\'' +
+                ", orgCode='" + orgCode + '\'' +
+                ", dealerCode='" + dealerCode + '\'' +
+                ", shopPhotos='" + shopPhotos + '\'' +
+                ", shelvesPhotos='" + shelvesPhotos + '\'' +
+                ", shopkeeperPhotos='" + shopkeeperPhotos + '\'' +
+                ", state=" + state +
+                ", remark='" + remark + '\'' +
+                ", photoStatus=" + photoStatus +
+                ", deleted=" + deleted +
+                ", creatorCode='" + creatorCode + '\'' +
+                ", creatorName='" + creatorName + '\'' +
+                ", creatorType='" + creatorType + '\'' +
+                ", modifierCode='" + modifierCode + '\'' +
+                ", created=" + created +
+                ", modified=" + modified +
+                ", photoApprovalDesc='" + photoApprovalDesc + '\'' +
+                ", photoApprovalCode='" + photoApprovalCode + '\'' +
+                ", photoApprovalName='" + photoApprovalName + '\'' +
+                ", photoApprovalTime=" + photoApprovalTime +
+                ", userShops=" + userShops +
+                ", dealers=" + dealers +
+                ", users=" + users +
+                '}';
+    }
 }
