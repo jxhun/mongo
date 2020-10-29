@@ -476,7 +476,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
                 Aggregation.unwind("orders"),
                 // 子文档查询条件
                 Aggregation.match(Criteria.where("orders.createdTime").lte(LocalDateTime.now().plusDays(-66))),
-                // f分组
+                // f分组     dasdassdasdasdasdasdas
                 Aggregation.group("id")
                         .sum("orders.sum").as("orderSum")
                         .last("orgId").as("orgId")
